@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Site made with Mobirise Website Builder v4.8.4, https://mobirise.com -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+    <link rel="shortcut icon" href="../assets/images/iglesiacemf-128x128-1.png" type="image/x-icon">
+    <meta name="description" content="Web Site Builder Description">
+    <title>Registro Tesoreria</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="../css/materialize.min.css" media="screen,projection" />
+
+
+</head>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+<!-- Compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('.datepicker').datepicker();
+    });
+
+    $(document).ready(function() {
+        $('select').formSelect();
+    });
+</script>
+
+<body>
+    <h3 align="center">Registro Tesoreria</h3>
+    <div class="container">
+        <div class="row">
+            <form class="col s12">
+                <div class="row">
+                    <div class="input-field col s4 m2">
+                        <input placeholder="Monto($)" id="dinero" type="number" class="validate">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s10 m6">
+                        <input placeholder="Razón" id="razon" type="text" class="validate">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s8 m4">
+                        <select>
+                                        <option value="" disabled selected>Tipo de gasto</option>
+                                        <option value="papeleria">Papeleria</option>
+                                        <option value="dulceria">Dulceria</option>
+                                        <option value="ferreteria">Ferreteria</option>
+                                        <option value="extra">Otro</option>
+                                </select>
+                    </div>
+                </div>
+            </form>
+            <button class="btn waves-effect waves-light" type="submit" name="action">Enviar
+                <i class="material-icons right">send</i>
+              </button>
+        </div>
+
+    </div>
+</body>
+
+</html>
