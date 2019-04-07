@@ -38,33 +38,7 @@ passport.use(new LocalStrategy(users.admin.authenticate()));
 passport.serializeUser(users.admin);
 passport.deserializeUser(users.admin);
 
-app.post('/m/registro', (request, response) => {
-    console.log("Entre al post")
-    users.admin.register(new users.admin({
-        username: request.body.username,
-        password: request.body.password,
-        name: request.body.name,
-        title: request.body.title
-    }), request.body.password, (error, user) => {
-        if (error) {
-            console.log("Falle por esto >>>>> ", error);
-            console.log(request.body)
-            return response.render('adminfail');
-        }
 
-        passport.authenticate("local")(request, response, () => {
-            response.redirect('/login');
-        })
-
-    })
-})
-
-
-app.post('/login', (req, res) => passport.authenticate('local', {
-    successRedirect: '/adminsuccess',
-    failureRedirect: '/test',
-    failureFlash: true
-})(req, res));
 
 
 exports.app = functions.https.onRequest(app);
