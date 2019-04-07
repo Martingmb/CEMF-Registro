@@ -63,3 +63,8 @@ node_modules/
 
 # dotenv environment variables file
 .env
+
+# Folders to ignore
+local/
+Login_v6/
+mobirise/
