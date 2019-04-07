@@ -7,7 +7,7 @@ var passportLocalMongoose = require('passport-local-mongoose');
 var LocalStrategy = require('passport-local').Strategy;
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
-var users = require('./models/users');
+var users = require('./models/admin');
 var flash = require('connect-flash');
 
 // // Create and Deploy Your First Cloud Functions

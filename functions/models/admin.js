@@ -1,8 +1,9 @@
-var moongose = require('mongoose')
-var bcrypt = require('bcrypt')
-var passportLocalMongoose = require('passport-local-mongoose')
+var mongose = require('mongoose');
+var bcrypt = require('bcrypt');
+mongose.Promise = global.Promise;
+var passportLocalMongoose = require('passport-local-mongoose');
 
-var adminSchema = new moongose.Schema({
+var adminSchema = new mongose.Schema({
     username: {
         type: String,
         unique: true,
@@ -31,5 +32,10 @@ var adminSchema = new moongose.Schema({
 
 adminSchema.plugin(passportLocalMongoose);
 
-var admin = moongose.model('admin', adminSchema);
-module.exports.admin = admin;
+const adminC = {}
+
+var Admin = mongose.model('Admin', adminSchema);
+
+
+
+module.exports = { adminC, Admin };
