@@ -1,0 +1,6 @@
+{
+  "projects": {
+    "staging": "cemf-registro",
+    "default": "cemf-registro"
+  }
+}

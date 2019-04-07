@@ -2,6 +2,7 @@ const functions = require('firebase-functions');
 const express = require('express');
 const consolidate = require('consolidate');
 const passport = require('passport');
+const router = require('./routes/router')
 var passportLocalMongoose = require('passport-local-mongoose');
 var LocalStrategy = require('passport-local').Strategy;
 var mongoose = require('mongoose');
@@ -19,8 +20,7 @@ var flash = require('connect-flash');
 const app = express();
 mongoose.connect('mongodb+srv://mgmb:nitram17@cemf-vweqn.mongodb.net/cemf-db?retryWrites=true', { useNewUrlParser: true });
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json(), router);
 app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
@@ -37,21 +37,6 @@ passport.use(new LocalStrategy(users.admin.authenticate()));
 
 passport.serializeUser(users.admin);
 passport.deserializeUser(users.admin);
-
-app.get('/test', (request, response) => {
-    response.send('Hello there you have connected succesfully')
-    console.log("Entre a la funcion de test")
-
-    var nombre = users.admin.find({ username: 'mgmb' })
-})
-
-app.get('/test2', (request, response) => {
-    response.render('index', { title: 'Home' });
-})
-
-app.get('/m/registro', (request, response) => {
-    response.render('admin', { title: "Registro" });
-})
 
 app.post('/m/registro', (request, response) => {
     console.log("Entre al post")
@@ -74,14 +59,6 @@ app.post('/m/registro', (request, response) => {
     })
 })
 
-app.get('/', (request, response) => {
-    response.render('index', { title: 'Home' });
-})
-
-
-app.get('/login', (request, response) => {
-    response.render('login', { title: 'Login' });
-})
 
 app.post('/login', (req, res) => passport.authenticate('local', {
     successRedirect: '/adminsuccess',

@@ -1,0 +1,80 @@
+doctype html
+html
+  head
+    // Site made with Mobirise Website Builder v4.8.4, https://mobirise.com
+    meta(charset='UTF-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1, minimum-scale=1')
+    link(rel='shortcut icon', href='../assets/images/iglesiacemf-128x128-1.png', type='image/x-icon')
+    title Reporte Semanal
+    // Import Google Icon Font
+    link(href='https://fonts.googleapis.com/icon?family=Material+Icons', rel='stylesheet')
+    // Import materialize.css
+    link(type='text/css', rel='stylesheet', href='../css/materialize.min.css', media='screen,projection')
+    script(src='https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js')
+    script.
+      $(document).ready(function() {
+      $('.datepicker').datepicker();
+      });
+      $(document).ready(function() {
+      $('select').formSelect();
+      });
+      $(document).ready(function() {
+      var append1 = "<div class='input-field col s6' id='visitante";
+      var append2 = "'><input id='visitante";
+      var append3 = "' type='text' class='validate'><label for='first_name'>Nombre</label></div>"
+      var contTemp = 0;
+      $('#visitantesCant').change(function() {
+      var contVisitantes = $('#visitantesCant').val()
+      if (contVisitantes >= contTemp) {
+      var cantidad = contVisitantes - contTemp
+      for (var i = 1; i <= cantidad; i++) {
+      $(append1 + i + append2 + i + append3).appendTo('#visitantes')
+      }
+      contTemp = contVisitantes
+      } else {
+      var cantidadAQuitar = contTemp - contVisitantes;
+      for (var i = 0; i < cantidadAQuitar; i++) {
+      var id = contTemp - i
+      var idCa = '#visitante' + id
+      $(idCa).remove()
+      }
+      }
+      })
+      });
+  // Compiled and minified JavaScript
+  body
+    h3(align='center') Reporte Semanal
+    h4#clase(align='center')
+    .container
+      .row
+        form.col.s12
+          .row
+            .input-field.col.s8.m4
+              select
+                option(value='', disabled='', selected='') Selecciona la Clase
+                option(value='1') Option 1
+                option(value='2') Option 2
+                option(value='3') Option 3
+              label Clase
+          .row
+            .input-field.col.s5.m2
+              input#asistencia.validate(placeholder='Asistencia', type='number')
+            .input-field.col.s4.m2
+              input#biblia.validate(placeholder='Biblias', type='number')
+            .input-field.col.s5.m2
+              input#date.datepicker(placeholder='Fecha', type='text')
+          .row
+            .input-field.col.s5.m2
+              input#capitulo.validate(placeholder='Capitulos Leidos', type='number')
+            .input-field.col.s4.m2
+              input#ofrenda.validate(placeholder='Ofrenda', type='number')
+            .input-field.col.s4.m2
+              input#visitantesCant.validate(placeholder='Visitantes', type='number')
+          .row
+            .input-field.col.s4.m2
+              input#aseo.validate(placeholder='Aseo', type='number')
+          #visitantes.row
+      button.btn.waves-effect.waves-light(type='submit', name='action')
+        | Enviar
+        i.material-icons.right send
