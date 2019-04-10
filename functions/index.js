@@ -1,14 +1,16 @@
 const functions = require('firebase-functions');
 const express = require('express');
-const consolidate = require('consolidate');
 const passport = require('passport');
 const router = require('./routes/router')
-var passportLocalMongoose = require('passport-local-mongoose');
-var LocalStrategy = require('passport-local').Strategy;
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
-var users = require('./models/admin');
 var flash = require('connect-flash');
+const aseos = require("./routes/api/aseo");
+const clases = require("./routes/api/clase");
+const maestros = require("./routes/api/maestro");
+const reportes = require("./routes/api/reporte");
+const tesorerias = require("./routes/api/tesoreria");
+const visitantes = require("./routes/api/visitante");
 
 // // Create and Deploy Your First Cloud Functions
 // // https://firebase.google.com/docs/functions/write-firebase-functions
@@ -18,12 +20,21 @@ var flash = require('connect-flash');
 // });
 
 const app = express();
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json());
+
 mongoose.connect('mongodb+srv://mgmb:nitram17@cemf-vweqn.mongodb.net/cemf-db?retryWrites=true', { useNewUrlParser: true });
 
-app.use(bodyParser.json(), router);
+app.use("", router);
+app.use("/api/", aseos);
+app.use("/api/", clases);
+app.use("/api/", maestros);
+app.use("/api/", reportes);
+app.use("/api/", tesorerias);
+app.use("/api/", visitantes);
+
 app.use(flash());
-app.use(passport.initialize());
-app.use(passport.session());
+
 app.use(require("express-session")({
     secret: "Una palabra super secrete que mg genero",
     resave: false,
@@ -33,12 +44,9 @@ app.use(require("express-session")({
 app.set('views', __dirname + '/views')
 app.set('view engine', 'pug')
 
-passport.use(new LocalStrategy(users.admin.authenticate()));
-
-passport.serializeUser(users.admin);
-passport.deserializeUser(users.admin);
-
-
-
+/*
+app.use(passport.initialize());
+require("./config/passport")(passport);
+*/
 
 exports.app = functions.https.onRequest(app);
