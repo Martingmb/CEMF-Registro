@@ -1,20 +1,20 @@
 const mongoose = require('mongoose');
+mongoose.Promise = global.Promise;
 const Schema = mongoose.Schema;
 
 let ReporteSchema = new Schema({
-    clase: {type: Schema.Types.ObjectId,required: true, ref: 'Clase'},
-    capitulosLeidos: {type: Number, required: true},
-    visita: {type: Boolean, required: false},
-    asistenciaAServicio: {type: Boolean, required: true, trim: false},
-    maestro: {type: Schema.Types.ObjectId, ref: 'Maestro'},
-    fecha: {type: Date, unique: true, required: true},
-    biblias: {type: Number, required: true}
+    clase: { type: Schema.Types.ObjectId, required: true, ref: 'Clase' },
+    capitulosLeidos: { type: Number, required: true },
+    visita: { type: Boolean, required: false },
+    asistenciaAServicio: { type: Boolean, required: true, trim: false },
+    maestro: { type: Schema.Types.ObjectId, ref: 'Maestro' },
+    fecha: { type: Date, unique: true, required: true }
 });
 
-const Reporte= mongoose.model("Reporte", ReporteSchema);
+const Reporte = mongoose.model("Reporte", ReporteSchema, "Reporte del Maestro");
 
 const Reportes = {
-    get : function(resolve, reject){
+    get: function(resolve, reject) {
         Reporte.find()
             .then(reportes => {
                 resolve(reportes);
@@ -24,7 +24,7 @@ const Reportes = {
             });
     },
 
-    getOne : function(resolve, reject, ReporteId){
+    getOne: function(resolve, reject, ReporteId) {
         Reporte.findById(ReporteId)
             .then(reporte => {
                 resolve(reporte);
@@ -34,7 +34,7 @@ const Reportes = {
             });
     },
 
-    create : function(resolve, reject, newReporte){
+    create: function(resolve, reject, newReporte) {
         Reporte.create(newReporte)
             .then(result => {
                 resolve(result);
@@ -44,25 +44,25 @@ const Reportes = {
             });
     },
 
-    update : function (resolve, reject, ReporteId, updatedReporte){
-        Reporte.findByIdAndUpdate(ReporteId, {$set : updatedReporte}, {new : true})
-        .then(result => {
-            resolve(result);
-        })
-        .catch(err => {
-            reject(err);
-        })
+    update: function(resolve, reject, ReporteId, updatedReporte) {
+        Reporte.findByIdAndUpdate(ReporteId, { $set: updatedReporte }, { new: true })
+            .then(result => {
+                resolve(result);
+            })
+            .catch(err => {
+                reject(err);
+            })
     },
 
-    delete : function (resolve, reject, ReporteId){
+    delete: function(resolve, reject, ReporteId) {
         Reporte.findByIdAndRemove(ReporteId)
-        .then(result => {
-            resolve(result);
-        })
-        .catch(err => {
-            reject(err);
-        })
+            .then(result => {
+                resolve(result);
+            })
+            .catch(err => {
+                reject(err);
+            })
     }
 }
 
-module.exports = Reportes
+module.exports = Reportes;

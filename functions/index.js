@@ -1,45 +1,66 @@
 const functions = require('firebase-functions');
 const express = require('express');
+const session = require('express-session');
 const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
 const router = require('./routes/router')
-var mongoose = require('mongoose');
-var bodyParser = require('body-parser');
-var flash = require('connect-flash');
+const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
+const MongoStore = require('connect-mongo')(session);
+const { DATABASE_URL, PORT } = require('./config');
+const reporteSemanal = require('./routes/api/reporteSemanal');
+const reporteMaestro = require('./routes/api/reporteMaestro');
 const aseos = require("./routes/api/aseo");
 const clases = require("./routes/api/clase");
 const maestros = require("./routes/api/maestro");
 const reportes = require("./routes/api/reporte");
 const tesorerias = require("./routes/api/tesoreria");
 const visitantes = require("./routes/api/visitante");
-
-// // Create and Deploy Your First Cloud Functions
-// // https://firebase.google.com/docs/functions/write-firebase-functions
-//
-// exports.helloWorld = functions.https.onRequest((request, response) => {
-//  response.send("Hello from Firebase!");
-// });
+const registro = require("./routes/api/user");
+const login = require("./routes/api/login");
+const User = require('./models/user');
 
 const app = express();
-app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-mongoose.connect('mongodb+srv://mgmb:nitram17@cemf-vweqn.mongodb.net/cemf-db?retryWrites=true', { useNewUrlParser: true });
+mongoose.connect(DATABASE_URL, { useNewUrlParser: true });
+
+const db = mongoose.connection;
+
+app.use(session({
+    name: 'session-id',
+    secret: '123-456-789',
+    saveUninitialized: true,
+    expires: false,
+    secure: false,
+    store: new MongoStore({
+        mongooseConnection: db,
+        ttl: 10 * 60,
+        autoRemove: 'interval',
+        autoRemoveInterval: 10
+    })
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+mongoose.connect(DATABASE_URL, { useNewUrlParser: true });
 
 app.use("", router);
+app.use("", reporteSemanal);
+app.use("", reporteMaestro);
+app.use("", registro);
+app.use("", login);
 app.use("/api/", aseos);
 app.use("/api/", clases);
 app.use("/api/", maestros);
 app.use("/api/", reportes);
 app.use("/api/", tesorerias);
 app.use("/api/", visitantes);
-
-app.use(flash());
-
-app.use(require("express-session")({
-    secret: "Una palabra super secrete que mg genero",
-    resave: false,
-    saveUninitialized: false
-}));
 
 app.set('views', __dirname + '/views')
 app.set('view engine', 'pug')

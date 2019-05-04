@@ -41,9 +41,9 @@ html(lang='en')
     .limiter
       .container-login100
         .wrap-login100.p-t-85.p-b-20
-          form#formReg.login100-form.validate-form(method='post')
+          form#formReg.login100-form.validate-form(action='/m/registro', method='post')
             span.login100-form-title.p-b-70
-              | Bienvenido
+              | Registrar Nuevo Usuario
             span.login100-form-avatar
               img(src='../assets/images/iglesiacemf.jpg ', alt='AVATAR ')
             .wrap-input100.validate-input.m-t-85.m-b-35(data-validate='Escribe su usuario ')
@@ -52,19 +52,24 @@ html(lang='en')
             .wrap-input100.validate-input.m-t-85.m-b-35(data-validate='Escribe su nombre ')
               input.input100(type='text ', name='name')
               span.focus-input100(data-placeholder='Nombre ')
+            .wrap-input100.validate-input.m-b-85(data-validate='Escribe su contraseña ')
+              input.input100(type='password', name='password')
+              span.focus-input100(data-placeholder='Contraseña ')
             .wrap-input100.validate-input.m-t-85.m-b-35(data-validate='Escribe su titulo ')
               input.input100(type='text ', name='title')
               span.focus-input100(data-placeholder='Titulo ')
-            .wrap-input100.validate-input.m-b-85(data-validate='Escribe su contraseña ')
-              input.input100(type='password ', name='password')
-              span.focus-input100(data-placeholder='Contraseña ')
+            select#type.form-control(name='type')
+              option(value='Maestro') Maestro
+              option(value='Directiva') Directiva
+              option(value='Admin') Admin
+            br
             .container-login100-form-btn
               button.login100-form-btn(type='submit', form='formReg')
                 | Registrar
             ul.login-more.p-t-190
               li.m-b-8
                 span.txt1
-                  | ¿Olvido su
+                  | ¿Olvido su 
                 a.txt2(href='# ')
                   | Usuario / Contraseña?
     #dropDownSelect1 

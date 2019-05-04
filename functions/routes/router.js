@@ -4,8 +4,6 @@ const router = express.Router();
 router.get('/test', (req, res, next) => {
     res.send('Hello there you have connected succesfully')
     console.log("Entre a la funcion de test")
-
-    var nombre = users.admin.find({ username: 'mgmb' })
 })
 
 router.get('/test2', (req, res, next) => {
@@ -41,7 +39,12 @@ router.get('/login', (req, res, next) => {
 })
 
 router.get('/directiva', (req, res, next) => {
-    res.render('directiva', { title: 'Login' });
+    res.send({
+        status: "This is the session object",
+        session: req.session
+    })
+
+    //res.render('directiva', { title: 'Directiva' });
 })
 
 router.get('/registroTesoreria', (req, res, next) => {
@@ -55,5 +58,10 @@ router.get('/registroSalon', (req, res, next) => {
 router.get('/generarReporte', (req, res, next) => {
     res.render('generarReporte', { title: 'Login' });
 })
+
+
+//Post methods
+
+
 
 module.exports = router;

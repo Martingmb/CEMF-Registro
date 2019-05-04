@@ -41,16 +41,16 @@ html(lang='en')
     .limiter
       .container-login100
         .wrap-login100.p-t-85.p-b-20
-          form#formReg.login100-form.validate-form(method='post')
+          form#formReg.login100-form.validate-form(action='/login', method='post')
             span.login100-form-title.p-b-70
               | Bienvenido
             span.login100-form-avatar
               img(src='../assets/images/iglesiacemf.jpg ', alt='AVATAR ')
             .wrap-input100.validate-input.m-t-85.m-b-35(data-validate='Escriba su usuario ')
-              input.input100(type='text ', name='username ')
+              input.input100(type='text ', name='username')
               span.focus-input100(data-placeholder='Usuario ')
             .wrap-input100.validate-input.m-b-50(data-validate='Escriba su contraseña ')
-              input.input100(type='password ', name='pass ')
+              input.input100(type='password ', name='password')
               span.focus-input100(data-placeholder='Contraseña ')
             .container-login100-form-btn
               button.login100-form-btn(type='submit', form='formReg')
@@ -60,7 +60,7 @@ html(lang='en')
                 span.txt1
                   | ¿Olvido su
                 a.txt2(href='# ')
-                  | Usuario / Contraseña?
+                  |  Usuario / Contraseña?
     #dropDownSelect1 
     // ===============================================================================================
     script(src='../vendor/jquery/jquery-3.2.1.min.js ')
