@@ -21,12 +21,12 @@ router.post('/reporteMaestro', (req, res, next) => {
         let reporteMaestro = {
             clase: session.cookie.clase,
             capitulosLeidos: req.body.capitulos,
-            visita: req.body.visito,
+            visita: req.body.visita,
             asistenciaAServicio: req.body.servicio,
             maestro: session.cookie._id,
             fecha: moment().format()
         }
-
+        console.log(reporteMaestro);
         let promiseAseo = new Promise(function(resolve, reject) {
             reporte.create(resolve, reject, reporteMaestro);
         }).then(result => {
