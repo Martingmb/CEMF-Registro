@@ -1,9 +1,10 @@
 const functions = require('firebase-functions');
 const express = require('express');
 const session = require('express-session');
+const cookieParser = require('cookie-parser');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
-const router = require('./routes/router')
+const router = require('./routes/router');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const MongoStore = require('connect-mongo')(session);
@@ -11,11 +12,14 @@ const { DATABASE_URL, PORT } = require('./config');
 const reporteSemanal = require('./routes/api/reporteSemanal');
 const reporteMaestro = require('./routes/api/reporteMaestro');
 const aseos = require("./routes/api/aseo");
+const registroAseo = require("./routes/api/reporteAseo");
 const clases = require("./routes/api/clase");
 const maestros = require("./routes/api/maestro");
 const reportes = require("./routes/api/reporte");
 const tesorerias = require("./routes/api/tesoreria");
 const visitantes = require("./routes/api/visitante");
+const registroTesoreria = require("./routes/api/registroTesoreria");
+const registroSalon = require("./routes/api/registroSalon");
 const registro = require("./routes/api/user");
 const login = require("./routes/api/login");
 const User = require('./models/user');
@@ -31,16 +35,21 @@ const db = mongoose.connection;
 app.use(session({
     name: 'session-id',
     secret: '123-456-789',
-    saveUninitialized: true,
+    saveUninitialized: false,
     expires: false,
     secure: false,
     store: new MongoStore({
         mongooseConnection: db,
-        ttl: 10 * 60,
+        ttl: 5 * 60,
         autoRemove: 'interval',
-        autoRemoveInterval: 10
+        autoRemoveInterval: 5
     })
+
 }));
+
+
+app.use(cookieParser());
+
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -55,6 +64,9 @@ app.use("", reporteSemanal);
 app.use("", reporteMaestro);
 app.use("", registro);
 app.use("", login);
+app.use("", registroTesoreria);
+app.use("", registroSalon);
+app.use("", registroAseo);
 app.use("/api/", aseos);
 app.use("/api/", clases);
 app.use("/api/", maestros);

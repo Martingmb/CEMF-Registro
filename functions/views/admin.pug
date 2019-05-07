@@ -1,7 +1,7 @@
 doctype html
 html(lang='en')
   head
-    title Login
+    title #{title}
     meta(charset='UTF-8')
     meta(name='viewport', content='width=device-width, initial-scale=1')
     // ===============================================================================================
@@ -28,15 +28,27 @@ html(lang='en')
     // ===============================================================================================
     script(src='https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js ')
     script(src='https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js ')
+    // Compiled and minified JavaScript
     script.
       $(document).ready(function() {
-      var gen = "Bienvenido "
-      var nombre = "Martin "
-      localStorage.setItem('bienvenida', gen)
-      localStorage.setItem('nombre', nombre)
-      window.localStorage.setItem('prueba', "HEYYO ")
+      $("#clase").hide();
+      $("#type")
+      .change(function() {
+      var str = "";
+      $("#type option:selected").each(function() {
+      str += $(this).text();
+      });
+      if(str === "Maestro") {
+      $("#clase").show();
+      console.log("entre al if")
+      } else {
+        $("#clase").hide();
+      }
       })
-  // Compiled and minified JavaScript
+      
+      .change();
+      });
+     
   body
     .limiter
       .container-login100
@@ -59,9 +71,23 @@ html(lang='en')
               input.input100(type='text ', name='title')
               span.focus-input100(data-placeholder='Titulo ')
             select#type.form-control(name='type')
+              option(value='', disabled='', selected='') ¿Rol?
               option(value='Maestro') Maestro
               option(value='Directiva') Directiva
               option(value='Admin') Admin
+            br
+            select#clase.form-control(name="clase")
+              option(value='Angelitos') Angelitos
+              option(value='Estrellitas') Estrellitas
+              option(value='Soldaditos') Soldaditos
+              option(value='Amigos') Amigos
+              option(value='Hijos del Rey') Hijos del Rey
+              option(value='Siervos') Siervos
+              option(value='Seguidores') Seguidores
+              option(value='Jovenes') Jovenes
+              option(value='Pre-Baustimal') Pre-Baustimal
+              option(value='Post-Bautismal') Post-Bautismal'
+              option(value='Lideres') Lideres
             br
             .container-login100-form-btn
               button.login100-form-btn(type='submit', form='formReg')

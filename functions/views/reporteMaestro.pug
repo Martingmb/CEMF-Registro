@@ -42,6 +42,9 @@ html
                 option(value='', disabled='', selected='') ¿Asistio a algun servicio? 
                 option(value='true') Si
                 option(value='false') No
+          .row
+            .input-field.col.s5.m2
+              input#capitulo.validate(value=`${maestro}`, type='hidden', name='maestro')
           button.btn.waves-effect.waves-light(type='submit')
             | Enviar
             i.material-icons.right send

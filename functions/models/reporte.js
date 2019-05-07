@@ -3,15 +3,15 @@ mongoose.Promise = global.Promise;
 const Schema = mongoose.Schema;
 
 let ReporteSchema = new Schema({
-    clase: { type: Schema.Types.ObjectId, required: true, ref: 'Clase' },
+    clase: { type: Schema.Types.String, required: true },
     capitulosLeidos: { type: Number, required: true },
     visita: { type: Boolean, required: false },
     asistenciaAServicio: { type: Boolean, required: true, trim: false },
-    maestro: { type: Schema.Types.ObjectId, ref: 'Maestro' },
+    maestro: { type: Schema.Types.ObjectId, ref: 'users' },
     fecha: { type: Date, unique: true, required: true }
 });
 
-const Reporte = mongoose.model("Reporte", ReporteSchema, "Reporte del Maestro");
+const Reporte = mongoose.model("Reporte", ReporteSchema, "reporteMaestro");
 
 const Reportes = {
     get: function(resolve, reject) {

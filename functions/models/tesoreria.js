@@ -2,16 +2,17 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 let TesoreriaSchema = new Schema({
-    monto: {type: Schema.Types.Decimal128, required: true},
-    razon: {type: String, required: true},
-    tipoDeGasto: {type: Number, required: true},
-    fecha: {type: Date, required: true}
+    directivo: { type: Schema.Types.ObjectId, required: true },
+    monto: { type: Schema.Types.Decimal128, required: true },
+    razon: { type: String, required: true },
+    tipoDeGasto: { type: String, required: true },
+    fecha: { type: Date, required: true }
 });
 
 const Tesoreria = mongoose.model("Tesoreria", TesoreriaSchema);
 
 const Tesorerias = {
-    get : function(resolve, reject){
+    get: function(resolve, reject) {
         Tesoreria.find()
             .then(tesoreria => {
                 resolve(tesoreria);
@@ -21,7 +22,7 @@ const Tesorerias = {
             });
     },
 
-    getOne : function(resolve, reject, tesoreriaId){
+    getOne: function(resolve, reject, tesoreriaId) {
         Tesoreria.findById(tesoreriaId)
             .then(tesoreria => {
                 resolve(tesoreria);
@@ -31,7 +32,7 @@ const Tesorerias = {
             });
     },
 
-    create : function(resolve, reject, newTesoreria){
+    create: function(resolve, reject, newTesoreria) {
         Tesoreria.create(newTesoreria)
             .then(result => {
                 resolve(result);
@@ -41,24 +42,24 @@ const Tesorerias = {
             });
     },
 
-    update : function (resolve, reject, tesoreriaId, updatedTesoreria){
-        Tesoreria.findByIdAndUpdate(tesoreriaId, {$set : updatedTesoreria}, {new : true})
-        .then(result => {
-            resolve(result);
-        })
-        .catch(err => {
-            reject(err);
-        })
+    update: function(resolve, reject, tesoreriaId, updatedTesoreria) {
+        Tesoreria.findByIdAndUpdate(tesoreriaId, { $set: updatedTesoreria }, { new: true })
+            .then(result => {
+                resolve(result);
+            })
+            .catch(err => {
+                reject(err);
+            })
     },
 
-    delete : function (resolve, reject, tesoreriaId){
+    delete: function(resolve, reject, tesoreriaId) {
         Tesoreria.findByIdAndRemove(tesoreriaId)
-        .then(result => {
-            resolve(result);
-        })
-        .catch(err => {
-            reject(err);
-        })
+            .then(result => {
+                resolve(result);
+            })
+            .catch(err => {
+                reject(err);
+            })
     }
 }
 

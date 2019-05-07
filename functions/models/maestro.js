@@ -1,17 +1,16 @@
 const mongoose = require('mongoose');
+const User = require('./user');
 const Schema = mongoose.Schema;
+const options = {
+    discriminatorKey: 'usercemf', // our discriminator key, could be anything
+};
 
-let MaestroSchema = new Schema({
-    usuario: {type: String, unique: true, required: true, trim: true},
-    contrasena: {type: String, unique: true, required: true, trim: true},
-    nombre: {type: String, unique: false, required: true, trim: false},
-    clase: {type: Schema.Types.ObjectId, required: true, ref: 'Clase'}
-});
-
-const Maestro = mongoose.model("Maestro", MaestroSchema);
+let Maestro = User.discriminator('Maestro', new mongoose.Schema({
+    clase: { type: Schema.Types.String, required: true, ref: 'Clase' }
+}, options))
 
 const Maestros = {
-    get : function(resolve, reject){
+    get: function(resolve, reject) {
         Maestro.find()
             .then(maestros => {
                 resolve(maestros);
@@ -21,7 +20,7 @@ const Maestros = {
             });
     },
 
-    getOne : function(resolve, reject, MaestroId){
+    getOne: function(resolve, reject, MaestroId) {
         Maestro.findById(MaestroId)
             .then(maestro => {
                 resolve(maestro);
@@ -31,7 +30,7 @@ const Maestros = {
             });
     },
 
-    create : function(resolve, reject, newMaestro){
+    create: function(resolve, reject, newMaestro) {
         Maestro.create(newMaestro)
             .then(result => {
                 resolve(result);
@@ -41,24 +40,24 @@ const Maestros = {
             });
     },
 
-    update : function (resolve, reject, MaestroId, updatedMaestro){
-        Maestro.findByIdAndUpdate(MaestroId, {$set : updatedMaestro}, {new : true})
-        .then(result => {
-            resolve(result);
-        })
-        .catch(err => {
-            reject(err);
-        })
+    update: function(resolve, reject, MaestroId, updatedMaestro) {
+        Maestro.findByIdAndUpdate(MaestroId, { $set: updatedMaestro }, { new: true })
+            .then(result => {
+                resolve(result);
+            })
+            .catch(err => {
+                reject(err);
+            })
     },
 
-    delete : function (resolve, reject, MaestroId){
+    delete: function(resolve, reject, MaestroId) {
         Maestro.findByIdAndRemove(MaestroId)
-        .then(result => {
-            resolve(result);
-        })
-        .catch(err => {
-            reject(err);
-        })
+            .then(result => {
+                resolve(result);
+            })
+            .catch(err => {
+                reject(err);
+            })
     }
 }
 

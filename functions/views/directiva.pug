@@ -15,13 +15,7 @@ html
   link(rel='stylesheet', href='../assets/mobirise/css/mbr-additional.css', type='text/css')
   script(src='https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js')
   script(src='https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js')
-  script.
-    $(document).ready(function() {
-    var nombre = localStorage.getItem('nombre')
-    var welcome = localStorage.getItem('bienvenida')
-    document.getElementById("bienvenida").innerText = welcome
-    document.getElementById("maestro").innerText = nombre
-    })
+  
 // Compiled and minified JavaScript
 registro-tesoreria.html
   section#header12-4.header12.cid-rfkpwEQJqH.mbr-fullscreen.mbr-parallax-background
@@ -29,17 +23,17 @@ registro-tesoreria.html
     .container
       .media-container
         .col-md-12.align-center
-          h1#bienvenida.mbr-section-title.pb-3.mbr-white.mbr-bold.mbr-fonts-style.display-1
-          p#maestro.mbr-text.pb-3.mbr-white.mbr-fonts-style.display-5
+          h1#bienvenida.mbr-section-title.pb-3.mbr-white.mbr-bold.mbr-fonts-style.display-1 Bienvenido 
+          p#maestro.mbr-text.pb-3.mbr-white.mbr-fonts-style.display-5 #{titulo} #{name}
           .icons-media-container.mbr-white
             .card.col-12.col-md-6.col-lg-4
               .icon-block
-                a(href='/registroTesoreria')
+                a(href=`/registroTesoreria/${directivo}`)
                   span.mbri-layers.mbr-iconfont
               h5.mbr-fonts-style.display-5 Registro de Tesoreria
             .card.col-12.col-md-6.col-lg-4
               .icon-block
-                a.mbr-iconfont.mbri-layers(href='/registroSalon', <span='')
+                a.mbr-iconfont.mbri-layers(href=`/registroSalon/${directivo}`, <span='')
               h5.mbr-fonts-style.display-5 Registro de Salon
             .card.col-12.col-md-6.col-lg-4
               .icon-block

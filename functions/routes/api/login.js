@@ -11,20 +11,21 @@ router.post('/login', passport.authenticate('local'), (req, res) => {
         res.statusCode = 200;
         res.setHeader('Content-Type', 'application/json');
         req.session.type = person.type;
-        console.log(req.sessionID);
         if (req.session.type == 'Maestro') {
-            req.session.name = person.name;
-            req.session.type = person.type;
-            res.redirect('/maestro');
+            req.session.cookie = person;
+            req.session.save(err => {
+                res.redirect('/maestro/' + req.sessionID);
+            })
         } else {
-            req.session.name = person.name;
-            req.session.type = person.type;
             req.session.cookie = person;
             console.log(req.session);
-            req.session.save();
-            res.redirect('/directiva');
+            req.session.save(err => {
+                res.redirect('/directiva/' + req.sessionID);
+            });
+
         }
     })
+
 });
 
 module.exports = router;
